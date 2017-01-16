@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Drag and Drop Checkers</title>
+
+  <link rel="stylesheet" type="text/css" href="checkers.css" />
+</head>
+<body>
+  <div id="controlS" class="controlBox">
+    <ul class="tab">
+      <li><input type="button" value="Add Token" class="tablinks" onclick="openTab(event, 'Load Token')"  /></li>
+<!--  <li><input type="button" value="Save Token" class="tablinks" onclick="openTab(event, 'Save Token')" /></li> -->
+      <li><input type="button" value="Set Map"    class="tablinks" onclick="openTab(event, 'Set Map')"    /></li>
+<!--  <li><input type="button" value="Load Game"  class="tablinks" onclick="openTab(event, 'Load Game')"  /></li> -->
+      <li><input type="button" value="Save Game"  class="tablinks" onclick="openTab(event, 'Save Game')"  /></li>
+    </ul>
+    <div id="hide_show_buttons" >
+      <input type="button" value="X" onclick="hide_control(event)" />
+      <input type="button" value="A" onclick="show_controls(event)" />
+    </div>
+    <div id="Load Game" class="tabcontent">
+      <h3>Load Game...</h3>
+      <p>Fields to load existing game state.</p>
+    </div>
+    <div id="Save Game" class="tabcontent">
+      <h3>Save Game...</h3>
+      <p>Fields to save current game state.</p>
+    </div>
+    <div id="Load Token" class="tabcontent">
+      <h3>Add Token...</h3>
+      <form action="" name="tokenCreator">
+        <p>Choose a token color:</p>
+        <ul>
+        <li><label><input type="radio" name="tokenColor" value="black"  checked="checked" /> Black  </label></li>
+        <li><label><input type="radio" name="tokenColor" value="blue"                     /> Blue   </label></li>
+        <li><label><input type="radio" name="tokenColor" value="green"                    /> Green  </label></li>
+        <li><label><input type="radio" name="tokenColor" value="pink"                     /> Pink   </label></li>
+        <li><label><input type="radio" name="tokenColor" value="red"                      /> Red    </label></li>
+        <li><label><input type="radio" name="tokenColor" value="yellow"                   /> Yellow </label></li>
+        </ul>
+        <p>Choose a shape:</p>
+        <ul>
+        <li><label><input type="radio" name="tokenShape" value=" halfround" checked="checked" /> Block  </label></li>
+        <li><label><input type="radio" name="tokenShape" value=" round"                       /> Disc   </label></li>
+        <li><label><input type="radio" name="tokenShape" value=""                             /> Square </label></li>
+        </ul>
+        <input type="button" value="Create Token" onclick="load_token(event)"/>
+      </form>
+    </div>
+    <div id="Save Token" class="tabcontent">
+      <h3>Save Token...</h3>
+      <p>Fields to save current token state.</p>
+    </div>
+    <div id="Set Map" class="tabcontent">
+      <h3>Set Map...</h3>
+      <p>Fields to load background image.</p>
+    </div>
+    <div id="Token Description" class="tabcontent">
+      <h3>Token Description...</h3>
+      <div class="tokenDescription" >
+        <textarea>This will later contain a description of the selected token.</textarea>
+      </div>
+      <input type="button" value="Clone Token" onclick="clone_selected_token(event)"/>
+      <input type="button" value="Delete Token" onclick="delete_selected_token(event)"/>
+    </div>
+  </div>
+  <script src="checkers.js"></script>
+</body>
+</html>
