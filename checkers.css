@@ -9,20 +9,17 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
 }
 
-
-html {
-  background-color: #080;
-  overflow: hidden;
+html, body {
+    margin: 0;
+    height: 100%;
 }
 
 body {
-  width: 100%;
   overflow: hidden;
-  position:fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  background-color: #030;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 input {
@@ -32,30 +29,6 @@ input {
 
 input:hover {
   background-color: #e0e0ff;
-}
-
-.blue {
-  background-color: #01F;
-}
-
-.green {
-  background-color: #0D0;
-}
-
-.pink {
-  background-color: #F88;
-}
-
-.yellow {
-  background-color: #EE0;
-}
-
-.red {
-  background-color: #800;
-}
-
-.black {
-  background-color: #000;
 }
 
 .round {
@@ -70,8 +43,6 @@ input:hover {
   position: absolute;
   left: 45%;
   top: 45%;
-  height: 1in;
-  width: 1in;
 }
 
 ul.tab {
@@ -154,4 +125,14 @@ ul.tab li input:focus, .active {
 
 #hide_show_buttons * {
     display: block;
+}
+
+form {
+    display: block;
+}
+
+form>*{
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 9px;
 }

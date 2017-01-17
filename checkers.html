@@ -31,21 +31,30 @@
     <div id="Load Token" class="tabcontent">
       <h3>Add Token...</h3>
       <form action="" name="tokenCreator">
-        <p>Choose a token color:</p>
-        <ul>
-        <li><label><input type="radio" name="tokenColor" value="black"  checked="checked" /> Black  </label></li>
-        <li><label><input type="radio" name="tokenColor" value="blue"                     /> Blue   </label></li>
-        <li><label><input type="radio" name="tokenColor" value="green"                    /> Green  </label></li>
-        <li><label><input type="radio" name="tokenColor" value="pink"                     /> Pink   </label></li>
-        <li><label><input type="radio" name="tokenColor" value="red"                      /> Red    </label></li>
-        <li><label><input type="radio" name="tokenColor" value="yellow"                   /> Yellow </label></li>
-        </ul>
+        <div>
         <p>Choose a shape:</p>
         <ul>
-        <li><label><input type="radio" name="tokenShape" value=" halfround" checked="checked" /> Block  </label></li>
-        <li><label><input type="radio" name="tokenShape" value=" round"                       /> Disc   </label></li>
+        <li><label><input type="radio" name="tokenShape" value=" halfround"                   /> Block  </label></li>
+        <li><label><input type="radio" name="tokenShape" value=" round"     checked="checked" /> Disc   </label></li>
         <li><label><input type="radio" name="tokenShape" value=""                             /> Square </label></li>
         </ul>
+        </div>
+        <div>
+        <p>Token color:</p>
+        <ul >
+        <li><label><input type="radio" name="tokenColor" value="black"  checked="checked" /> Black  </label></li>
+<!--    <li><label><input type="radio" name="tokenColor" value="brown"                    /> Brown  </label></li> -->
+        <li><label><input type="radio" name="tokenColor" value="#C00"                     /> Red    </label></li>
+<!--    <li><label><input type="radio" name="tokenColor" value="orange"                   /> Orange </label></li> -->
+        <li><label><input type="radio" name="tokenColor" value="#EE0"                     /> Yellow </label></li>
+        <li><label><input type="radio" name="tokenColor" value="#0D0"                     /> Green  </label></li>
+        <li><label><input type="radio" name="tokenColor" value="#01F"                     /> Blue   </label></li>
+        <li><label><input type="radio" name="tokenColor" value="#402"                     /> Violet </label></li>
+        <li><label><input type="radio" name="tokenColor" value="#F88"                     /> Pink   </label></li>
+        <li><label><input type="radio" name="tokenColor" value="other" /> Other <input type="color" style="width:2em;" name="tokenOtherColor" value="white" /></label></li>
+        </ul>
+        </div>
+        <label> <p>Token Size(inches):</p> <input type="number" style="width:4em;" name="tokenSize" min="0.5" max="10" step="0.5" value="1" /></label>
         <input type="button" value="Create Token" onclick="load_token(event)"/>
       </form>
     </div>
@@ -55,7 +64,31 @@
     </div>
     <div id="Set Map" class="tabcontent">
       <h3>Set Map...</h3>
-      <p>Fields to load background image.</p>
+      <form action="" name="mapCreator">
+        <div>
+        <p>Overlay:</p>
+        <ul>
+        <li><label><input type="radio" name="mapOverlay" value="" checked="checked" /> None   </label></li>
+        <li><label><input type="radio" name="mapOverlay" value="squares"            /> Grid   </label></li>
+        <li><label><input type="radio" name="mapOverlay" value="x rects"            /> Logitudinal </label></li>
+        <li><label><input type="radio" name="mapOverlay" value="y rects"            /> Latitudinal </label></li>
+        </ul>
+        </div>
+        <div>
+        <p>Map Color:</p>
+        <ul>
+        <li><label><input type="radio" name="mapColor" value="#030"   checked="checked" /> Green  </label></li>
+        <li><label><input type="radio" name="mapColor" value="#122"                     /> Black  </label></li>
+        <li><label><input type="radio" name="mapColor" value="#002"                     /> Blue   </label></li>
+        <li><label><input type="radio" name="mapColor" value="#CC6"                     /> Yellow </label></li>
+        <li><label><input type="radio" name="mapColor" value="darkgrey"                 /> Gray   </label></li>
+        <li><label><input type="radio" name="mapColor" value="#EEF"                     /> White  </label></li>
+        <li><label><input type="radio" name="mapColor" value="other" /> Other <input type="color" style="width:2em;" name="mapOtherColor" value="gold" /></label></li>
+        </ul>
+        </div>
+        <input type="button" value="Update Map" onclick="set_background(event)"/>
+        <label> <p>Image:</p> <input type="file" name="mapImage" value="" /></label>
+      </form>
     </div>
     <div id="Token Description" class="tabcontent">
       <h3>Token Description...</h3>

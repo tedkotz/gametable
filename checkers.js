@@ -71,6 +71,7 @@ function wire_up_token(myToken) {
     }
     myToken.addEventListener("dragstart",drag_start,false);
     //myToken.addEventListener("mousedown",select_token,false);
+    myToken.addEventListener("click",select_token,false);
     myToken.addEventListener("dblclick",doubleclick_token,false);
 }
 
@@ -103,10 +104,17 @@ function save_state() {
 function load_state() {
 }
 
-function load_token(evt, form) {
+function load_token(evt) {
     var form = evt.currentTarget.parentNode;
     var new_token = document.createElement('div');
-    new_token.className = form["tokenColor"].value + form["tokenShape"].value + " token";
+    var colorName = form["tokenColor"].value;
+    if( colorName==="other" ) {
+        colorName = form["tokenOtherColor"].value;
+    }
+    new_token.className =  form["tokenShape"].value + " token";
+    new_token.style.height = form["tokenSize"].value + "in";
+    new_token.style.width = form["tokenSize"].value + "in";
+    new_token.style.backgroundColor= colorName;
     new_token.setAttribute("draggable", "true");
     document.body.appendChild(new_token);
     wire_up_token(new_token);
@@ -115,7 +123,39 @@ function load_token(evt, form) {
 function save_token() {
 }
 
-function set_background() {
+function background_loaded(event) {
+    document.body.style.backgroundImage = "url("+event.target.result+")";
+}
+    
+
+function set_background(evt) {
+    var form = evt.currentTarget.parentNode;
+    var colorName = form["mapColor"].value;
+    if( colorName==="other" ) {
+        colorName = form["mapOtherColor"].value;
+    }
+    document.body.style.backgroundColor= colorName;
+    var selectedFile = form["mapImage"].files[0];
+    if( selectedFile )
+    {
+        var reader = new FileReader();
+        
+        reader.onload = background_loaded;
+            
+        reader.readAsDataURL(selectedFile);
+    }
+    else
+    {
+       document.body.style.backgroundImage="none";         
+    }
+    
+/*    new_token.className =  form["tokenShape"].value + " token";
+    new_token.style.height = form["tokenSize"].value + "in";
+    new_token.style.width = form["tokenSize"].value + "in";
+    new_token.setAttribute("draggable", "true");
+    document.body.appendChild(new_token);
+    wire_up_token(new_token);
+*/
 }
 
 function show_controls(event) {
@@ -161,4 +201,9 @@ var itm = document.getElementById("controlS");
     cln.style.display = "none";
     itm.parentNode.appendChild(cln);
 })
+
+var forms = document.getElementsByTagName("FORM");
+for (var i = 0; i < forms.length; i++) {
+  forms[i].reset();
+}
 
