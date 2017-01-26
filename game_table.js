@@ -47,18 +47,21 @@ function openTab(evt, Name) {
 
 function set_focused_token( token ) {
     var i, tabcontent;
-    var descript;
+    var descript, image;
     if( token  && token.classList.contains("token") ) {
         selectedToken=token;
         descript = "<p>" + token.id + "</p><p>" + token.className + "</p><p>" + token.style.backgroundColor + "</p>";
+        image = token.style.backgroundImage;
     }
     else {
         selectedToken=null;
         descript = "<p> No Token selected.</p>";
+        image = "none"
     }
     tabcontent = document.getElementsByClassName("tokenDescription");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].innerHTML = descript;
+        tabcontent[i].style.backgroundImage = image;
     }
 }
     
@@ -112,40 +115,110 @@ function load_state() {
 function load_token(evt) {
     var form = evt.currentTarget.parentNode;
     var new_token = document.createElement('div');
-    var colorName = form["tokenColor"].value;
-    if( colorName==="other" ) {
-        colorName = form["tokenOtherColor"].value;
-    }
-    new_token.className =  form["tokenShape"].value + " token";
-    new_token.style.height = form["tokenSize"].value + "in";
-    new_token.style.width = form["tokenSize"].value + "in";
-    new_token.style.backgroundColor= colorName;
     var selectedFile = form["tokenFile"].files[0];
     if( selectedFile )
     {
         var reader = new FileReader();
         
         reader.onload = function(event) {
-            new_token.style.backgroundImage = "url("+event.target.result+")";
+            if(event.target.error) {
+              alert("Load Error:" + event.target.error.message);
+            }
+            else {
+                var tokenObject=null;
+                try {
+                    tokenObject=JSON.parse( event.target.result);
+                }
+                catch (e) { }
+                if( tokenObject && tokenObject.type && tokenObject.type === "GameTableToken" && 
+                    Number(tokenObject["majorVersion"]) === 1 && Number(tokenObject["minorVersion"]) >= 0 ) {
+                    
+                    new_token.className =  tokenObject["className"];
+                    new_token.style.height = tokenObject["size"];
+                    new_token.style.width = tokenObject["size"];
+                    new_token.style.backgroundColor= tokenObject["color"];
+                    new_token.style.backgroundImage = tokenObject["image"];
+                }
+                else {
+                    new_token.className =  "halfround token";
+                    new_token.style.height = form["tokenSize"].value + "in";
+                    new_token.style.width = form["tokenSize"].value + "in";
+                    new_token.style.backgroundColor= "transparent";
+                    new_token.style.backgroundImage = "url("+event.target.result+")";
+                }
+            }
         };
-            
-        reader.readAsDataURL(selectedFile);
+        
+        if(selectedFile.type === "binary/json") {
+            reader.readAsText(selectedFile);
+        }
+        else {
+            reader.readAsDataURL(selectedFile);
+        }
     }
     else
     {
-       new_token.style.backgroundImage="none";         
+        var colorName = form["tokenColor"].value;
+        if( colorName==="other" ) {
+            colorName = form["tokenOtherColor"].value;
+        }
+        new_token.className =  form["tokenShape"].value + " token";
+        new_token.style.height = form["tokenSize"].value + "in";
+        new_token.style.width = form["tokenSize"].value + "in";
+        new_token.style.backgroundColor= colorName;
+        new_token.style.backgroundImage="none";         
     }
+    form["tokenFile"].value="";
     new_token.setAttribute("draggable", "true");
     document.body.appendChild(new_token);
     wire_up_token(new_token);
     set_focused_token(new_token);   
 }
 
-function save_token() {
+function saveAs(uri, filename) {
+    var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+    link.href = uri;
+    link.download = filename;
+
+    //Firefox requires the link to be in the body
+    document.body.appendChild(link);
+
+    //simulate click
+    link.click();
+
+    //remove the link when done
+    document.body.removeChild(link);
+    }
+    else {
+    window.open(uri);
+    }
+}
+
+function save_selected_token(evt) {
+    if(selectedToken) {
+        var filename=selectedToken.id + ".json";
+        var tokenObject = {};
+
+        tokenObject["type"]="GameTableToken";
+        tokenObject["majorVersion"]="1";
+        tokenObject["minorVersion"]="0"; 
+        tokenObject["className"]=selectedToken.className;
+        tokenObject["color"]=selectedToken.style.backgroundColor;
+        tokenObject["size"]=selectedToken.style.height;
+        tokenObject["image"]=selectedToken.style.backgroundImage;
+
+        saveAs('data:binary/json,' + encodeURIComponent(JSON.stringify(tokenObject, null, ' ')), filename);
+    }
 }
 
 function background_loaded(event) {
-    document.body.style.backgroundImage = "url("+event.target.result+")";
+    if(event.target.error) {
+        alert("Load Error:" + event.target.error.message);
+    }
+    else {
+        document.body.style.backgroundImage = "url("+event.target.result+")";
+    }
 }
     
 

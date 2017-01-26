@@ -1,5 +1,5 @@
 /* reset default styles */
-:not(button) { flex: 1 1 auto; margin: 0; padding: 0; border: 0; font: inherit; vertical-align: inherit; background-color:inherit; box-sizing: border-box; overflow: hidden; }
+:not(button) { flex: 1 1 auto; margin: 0; padding: 0; border: 0; font: inherit; vertical-align: inherit; background-color:transparent; box-sizing: border-box; overflow: hidden; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 ol, ul { list-style: none; }
 blockquote, q { quotes: none; }
@@ -86,6 +86,12 @@ ul.tab li input:focus, .active {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+}
+
+.tokenDescription {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top;
 }
 
 .controlBox {
