@@ -44,25 +44,30 @@ function openTab(evt, Name) {
     evt.currentTarget.parentNode.className += " active";
 }
 
-function select_token(evt) {
-    var i, tabcontent, tablinks;
-    selectedToken=evt.currentTarget;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        if( tabcontent[i].id === "Token Description" ) {
-            tabcontent[i].style.display = "block";
-        } else {
-            tabcontent[i].style.display = "none";
-        }
+
+function set_focused_token( token ) {
+    var i, tabcontent;
+    var descript;
+    if( token  && token.classList.contains("token") ) {
+        selectedToken=token;
+        descript = "<p>" + token.id + "</p><p>" + token.className + "</p><p>" + token.style.backgroundColor + "</p>";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    else {
+        selectedToken=null;
+        descript = "<p> No Token selected.</p>";
+    }
+    tabcontent = document.getElementsByClassName("tokenDescription");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].innerHTML = descript;
     }
 }
+    
+function select_token(evt) {
+    set_focused_token( evt.currentTarget );
+}
 
-function doubleclick_token(event) {
-    select_token(event);
+function doubleclick_token(evt) {
+    set_focused_token( evt.currentTarget );
 }
 
 function wire_up_token(myToken) {
@@ -85,7 +90,7 @@ function clone_selected_token()
         cln.style.left = (rect.left + 20) + 'px';
         cln.style.top = (rect.top + 10) + 'px';        
         wire_up_token(cln);
-        selectedToken=cln;
+        set_focused_token(cln);
     }
 }
 
@@ -93,7 +98,7 @@ function delete_selected_token()
 {
     if(selectedToken) {
         selectedToken.parentNode.removeChild(selectedToken);
-        selectedToken=null;
+        set_focused_token(null);
     }
 }
 
@@ -115,9 +120,25 @@ function load_token(evt) {
     new_token.style.height = form["tokenSize"].value + "in";
     new_token.style.width = form["tokenSize"].value + "in";
     new_token.style.backgroundColor= colorName;
+    var selectedFile = form["tokenFile"].files[0];
+    if( selectedFile )
+    {
+        var reader = new FileReader();
+        
+        reader.onload = function(event) {
+            new_token.style.backgroundImage = "url("+event.target.result+")";
+        };
+            
+        reader.readAsDataURL(selectedFile);
+    }
+    else
+    {
+       new_token.style.backgroundImage="none";         
+    }
     new_token.setAttribute("draggable", "true");
     document.body.appendChild(new_token);
     wire_up_token(new_token);
+    set_focused_token(new_token);   
 }
 
 function save_token() {
@@ -148,14 +169,6 @@ function set_background(evt) {
     {
        document.body.style.backgroundImage="none";         
     }
-    
-/*    new_token.className =  form["tokenShape"].value + " token";
-    new_token.style.height = form["tokenSize"].value + "in";
-    new_token.style.width = form["tokenSize"].value + "in";
-    new_token.setAttribute("draggable", "true");
-    document.body.appendChild(new_token);
-    wire_up_token(new_token);
-*/
 }
 
 function show_controls(event) {
