@@ -25,17 +25,20 @@ Will initially run inside full screen web browser.
 
 Phase 1
 -------
-Map 
- - Base background map image. Supporting square and offset rectangle overlay.
-Tokens 
- - drag and dropable interactive icons with transparancy (PNG, GIF, SVG)
- - double clickable to show editable stat view (tied to JSON data)
- - deletable
-Panel (at least 1 per side??)
- - has an assortment of dice that you touch to roll.
- - has a way to change the map
- - quickly add new tokens.
- - Music control?
+### Map 
+- [] Base background map image. 
+- [] Supporting square and offset rectangle overlay.
+
+### Tokens 
+- [] drag and dropable interactive icons with transparancy (PNG, GIF, SVG)
+- [] double clickable to show editable stat view (tied to JSON data)
+- [] deletable
+
+### Panel (at least 1 per side??)
+- [] has an assortment of dice that you touch to roll.
+- [] has a way to change the map
+- [] quickly add new tokens.
+- [] Music control?
 
 Games
 -----
@@ -48,30 +51,30 @@ Data Format
 -----------
 
 ### .tok files
-- JSON list of displayable attributes (Name, Description, etc)
-- non-displayable attrbutes start with '_'
-- _icon references an image file
-- maybe allow loading just image to create an empty token that could be filled out and saved.
+- [] JSON list of displayable attributes (Name, Description, etc)
+- [] non-displayable attrbutes start with '_'
+- [] _icon references an image file
+- [] maybe allow loading just image to create an empty token that could be filled out and saved.
 
 ### .map file
-- Just an image to start
-- add per space attributes later.
+- [] Just an image to start
+- [] add per space attributes later.
 
 Additions
 ---------
-- Add selectable spaces to the map interface.
-- Animated tokens
-- 3D/isometric tokens will this work upside down??
-- Animated maps
-- Randomized map generation
-- Flipable tokens
-- stackable tokens
-- shuffleable tokens
-- rotatability?
-- Hex overlay
-- remote control visit url to get syncronised map with indepentant control panel.
-- Chat/ remote play
-- Save board state.
+- [] Add selectable spaces to the map interface.
+- [] Animated tokens
+- [] 3D/isometric tokens will this work upside down??
+- [] Animated maps
+- [] Randomized map generation
+- [] Flipable tokens
+- [] stackable tokens
+- [] shuffleable tokens
+- [] rotatability?
+- [] Hex overlay
+- [] remote control visit url to get syncronised map with indepentant control panel.
+- [] Chat/ remote play
+- [] Save board state.
 
 Brain Storm
 -----------
