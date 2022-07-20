@@ -50,7 +50,11 @@ function set_focused_token( token ) {
     var descript, image;
     if( token  && token.classList.contains("token") ) {
         selectedToken=token;
-        descript = "<p>" + token.id + "</p><p>" + token.className + "</p><p>" + token.style.backgroundColor + "</p>";
+//        descript = "<p>" + token.id + "</p><p>" + token.className + "</p><p>" + token.style.backgroundColor + "</p>";
+        descript = "<table><tbody><tr><th>Attribute</th><th>Value</th></tr>" 
+            + "<tr><td>Id</td><td>" + token.id + "</td></tr>"
+            + "<tr><td>Class</td><td>" + token.className + "</td></tr>"
+            + "<tr><td>Color</td><td>" + token.style.backgroundColor + "</td></tr></tbody></table>";
         image = token.style.backgroundImage;
     }
     else {
@@ -277,7 +281,6 @@ for( var x in  c) {
   }
 }
 
-// Get the last <li> element ("Milk") of <ul> with id="myList2"
 var itm = document.getElementById("controlS");
 
 // Copy the <li> element and its child nodes
